@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&family=Host+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-login.css">
+    <title>KindNest - Login Page</title>
+</head>
+
+</header>
+<main>
+
+    </form>
+    </div>
+</main>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <form action="/login" method="post">
+
+        <div class="wrapper">
+            <h1>Welcome to KindNest - The Kindness App</h1>
+            <div class="input-box">
+                <input type="text" placeholder="Username" name="Username" required="">
+                <div style="padding-top: 5px;"><i style="padding-top: 6%;" class="bx bxs-user"></i></div>
+            </div><br>
+    
+            <div class="input-box">
+                <input type="password" placeholder="Password" name="Password" id="password-field" required="">
+                <i style="padding-top: 6%;" class="bx bxs-lock-alt" id="togglePassword"></i>
+            </div><br><br>
+    
+            <div class="select">
+                <select name="type" id="type" required="">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <div style="padding-top: 5px;"><i style="padding-top: 6%;" class="bx bxs-user"></i></div>
+            </div><br><br>
+    
+            <div class="select">
+                <input type="button" class="button" value="Login">
+            </div>
+        </div>
+    </form>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        togglePassword.addEventListener('click', function (e) {
+            // toggle the type attribute of the input field
+            const passwordField = document.getElementById('password-field');
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+            // toggle the eye icon
+            this.classList.toggle('bx-hide');
+        });
+    </script>
+
+
+</body>
+
+</html>
