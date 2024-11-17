@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kindnest User Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;400;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: "Montserrat Alternates", sans-serif;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .events-list, .map-container, #latandlong {
+            flex: 1;
+            background-color: #ba2f2f;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 7.5px;
+        }
+
+        h1, h2 {
+            color: white;
+            font-weight: bold;
+        }
+
+        #map {
+            width: 100%;
+            height: 300px;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: rgb(255, 207, 207);
+            color: #ba2f2f;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #b99191;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="events-list">
+            <h2>Upcoming Events</h2>
+            <ul>
+                <!-- EVENT_LIST_PLACEHOLDER -->
+            </ul>
+        </div>
+        <div class="map-container">
+            <h2>Map</h2>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <div id="latandlong">
+        <h1>Your Location</h1>
+        <p>Click the button to get your coordinates and display them on the map.</p>
+        <button onclick="getLocation()">Get Location</button>
+        <p id="demo"></p>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([20.5937, 78.9629], 5);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // MARKERS_PLACEHOLDER
+
+        const demoElement = document.getElementById("demo");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                demoElement.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            demoElement.innerHTML = `Latitude: ${lat}, Longitude: ${lon}`;
+            map.setView([lat, lon], 15);
+            L.marker([lat, lon])
+                .addTo(map)
+                .bindPopup("You are here!")
+                .openPopup();
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    demoElement.innerHTML = "User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    demoElement.innerHTML = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    demoElement.innerHTML = "The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    demoElement.innerHTML = "An unknown error occurred.";
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>
